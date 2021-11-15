@@ -4,21 +4,26 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class StudyProgram extends Migration
+class VirtualMachine extends Migration
 {
     /**
      * Run the migrations.
      *
      * @return void
      */
-    public function up()
-    {
+    public function up(){
         //
-        Schema::create('study_program',function(Blueprint $table){
+        Schema::create('virutal_machine',function(Blueprint $table){
             $table-> id();//pk
+            //añadir user id como fk
             $table-> string('Name');
-            $table-> string('Classroom');
+            $table-> string('OS');
+            $table-> string('Version');
+            $table-> string('Ram size');
+            $table-> string('Disk capacity');
+            $table-> longText('Description');
             $table-> timestamps();//created_at updated_at
+            $table-> boolean('Power on');
         });
     }
 
@@ -30,6 +35,6 @@ class StudyProgram extends Migration
     public function down()
     {
         //
-        Schema::dropIfExists('study_program');
+        Schema::dropIfExists('virtual_machine');
     }
 }
