@@ -16,6 +16,9 @@ class VirtualMachine extends Migration
         Schema::create('virutal_machine',function(Blueprint $table){
             $table-> id();//pk
             //añadir user id como fk
+            $table->unsignedBigInteger('user_id');
+            $table->foreign('user_id')->references('id')->on('users');
+            //resto de info
             $table-> string('Name');
             $table-> string('OS');
             $table-> string('Version');

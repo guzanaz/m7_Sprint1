@@ -16,6 +16,9 @@ class CreateUsersTable extends Migration
         Schema::create('users', function (Blueprint $table) {
             $table->id();//pk
             //añadir study_program id como fk
+            $table->unsignedBigInteger('program_id');
+            $table->foreign('program_id')->references('id')->on('study_program');
+            //resto de info
             $table->string('name');
             $table->string('lastname');
             $table->string('email')->unique();
