@@ -24,7 +24,7 @@ class UserFactory extends Factory
     {
         return [
             'program_id'=>$this->faker->RandomElement(['1','2','3']),
-            'name' => $this->faker->name(),
+            'name' => $this->faker->firstname(),
             'lastname'=>$this->faker->lastName(),
             'avatar'=>$this->faker->randomElement(['a','b','c']),
             'email' => $this->faker->unique()->safeEmail(),
