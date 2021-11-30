@@ -2,7 +2,9 @@
 
 namespace Database\Seeders;
 
+use App\Models\User;
 use Illuminate\Database\Seeder;
+
 
 class DatabaseSeeder extends Seeder
 {
@@ -13,6 +15,13 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        // \App\Models\User::factory(10)->create();
+        //llamar al StudyProgramSeeder
+        $this->call(StudyProgramSeeder::class);
+        
+        //llamar al UserSeeder
+        $this->call(UserSeeder::class);
+
+        //llamar al VirtualMachineSeeder
+        $this->call(VirtualMachineSeeder::class);
     }
 }

@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class virtual_machine extends Model
+class VirtualMachine extends Model
 {
     use HasFactory;
     //modifica la table virtual_machine

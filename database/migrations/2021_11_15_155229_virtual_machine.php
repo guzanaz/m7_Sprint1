@@ -13,7 +13,7 @@ class VirtualMachine extends Migration
      */
     public function up(){
         //
-        Schema::create('virutal_machine',function(Blueprint $table){
+        Schema::create('virtual_machine',function(Blueprint $table){
             $table-> id();//pk
             //añadir user id como fk
             $table->unsignedBigInteger('user_id');
