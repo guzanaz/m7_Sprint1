@@ -1,6 +1,8 @@
 <?php
 
+use App\Http\Controllers;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\StudyProgramController;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,3 +18,8 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('StudyProgram',[StudyProgramController::class,'index'])->name('StudyProgram.index');
+Route::get('StudyProgram/create',[StudyProgramController::class,'create'])->name('StudyProgram.create');
+Route::post('StudyProgram', [StudyProgramController::class,'store'])->name('StudyProgram.store');
+Route::get('StudyProgram/{program}',[StudyProgramController::class,'show'])->name('StudyProgram.show');
