@@ -13,6 +13,11 @@
             <br>
             <input type="text" name="Name">
         </label>
+        @error('Name')
+            <br>
+            <small>*{{$message}}</small>
+            <br>
+        @enderror
         <br>
         <br>
         <label>
@@ -20,6 +25,11 @@
             <br>
             <input type="text" name="Classroom">
         </label>
+        @error('Classroom')
+            <br>
+            <small>*{{$message}}</small>
+            <br>
+        @enderror
         <br>
         <br>
         <button type="submit">Crear Programa</button>
