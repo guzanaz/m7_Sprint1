@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 class StudyProgramController  extends Controller
 {
     public function index(){
-        $programs = StudyProgram::paginate();
+        $programs = StudyProgram::orderBy('id','desc')->paginate();
         
         return view('StudyProgram.index', compact('programs'));
     }
@@ -22,10 +22,16 @@ class StudyProgramController  extends Controller
         $program->Name = $request ->Name;
         $program->Classroom = $request ->Classroom;
         $program->save();
+        return redirect()->route('StudyProgram.show',$program);
     }
 
-    public function show($id){
-        $program=StudyProgram::find($id);
+    public function show(StudyProgram $program){
+    
         return view('StudyProgram.show', compact('program'));
+    }
+
+    public function edit(StudyProgram $program){
+        return view('program.edit',compact('program'));
+
     }
 }
