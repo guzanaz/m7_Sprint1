@@ -12,7 +12,7 @@
         <label>
             Nom
             <br>
-            <input type="text" name="Name" value="{{$program->Name}}">
+            <input type="text" name="Name" value="{{old('Name',$program->Name)}}">
         </label>
         @error('Name')
             <br>
@@ -24,7 +24,7 @@
         <label>
             Aula
             <br>
-            <input type="text" name="Classroom" value="{{$program->Classroom}}">
+            <input type="text" name="Classroom" value="{{old('Classroom',$program->Classroom)}}">
         </label>
         @error('Classroom')
             <br>

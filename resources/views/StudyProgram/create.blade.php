@@ -11,7 +11,7 @@
         <label>
             Nom
             <br>
-            <input type="text" name="Name">
+            <input type="text" name="Name" value="{{old('Name')}}">
         </label>
         @error('Name')
             <br>
@@ -23,7 +23,7 @@
         <label>
             Aula
             <br>
-            <input type="text" name="Classroom">
+            <input type="text" name="Classroom" value="{{old('Classroom')}}">
         </label>
         @error('Classroom')
             <br>
