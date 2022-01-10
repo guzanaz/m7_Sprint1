@@ -45,6 +45,8 @@ class StudyProgramController  extends Controller
 
     public function destroy(StudyProgram $program){
         $program->delete();
+
+        return redirect()->route('StudyProgram.index');
     }
 
 }
