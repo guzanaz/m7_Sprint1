@@ -4,8 +4,6 @@
 
 @section('content')
     <h1>Editar Programa d'Estudi</h1>
-    
-
     <form action="{{route('StudyProgram.update',$program)}}" method="POST">
         @csrf 
         @method('put')
