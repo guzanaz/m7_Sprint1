@@ -3,9 +3,7 @@
 @section('title','createprogram')
 
 @section('content')
-    <h1>Crear Programa d'Estudi</h1>
-    
-
+    <h1>Crear Programa d'Estudi</h1>   
     <form action="{{route('StudyProgram.store')}}" method="POST">
         @csrf 
         <label>

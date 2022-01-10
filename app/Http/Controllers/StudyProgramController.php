@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\StudyProgram;
 use Illuminate\Http\Request;
 use Symfony\Contracts\Service\Attribute\Required;
+use App\Http\Requests\StoreStudyProgram;
 
 class StudyProgramController  extends Controller
 {
@@ -18,16 +19,8 @@ class StudyProgramController  extends Controller
         return view('StudyProgram.create');
     }
 
-    public function store(Request $request){
-        $request ->validate([
-            'Name'=>'required',
-            'Classroom'=>'required'
-        ]);
-
-        $program = new StudyProgram();
-        $program->Name = $request ->Name;
-        $program->Classroom = $request ->Classroom;
-        $program->save();
+    public function store(StoreStudyProgram $request){
+        $program =StudyProgram::create($request->all());
         return redirect()->route('StudyProgram.show',$program);
     }
 
@@ -50,5 +43,8 @@ class StudyProgramController  extends Controller
         return redirect()->route('StudyProgram.show', $program);
     }
 
+    public function destroy(StudyProgram $program){
+        $program->delete();
+    }
 
 }

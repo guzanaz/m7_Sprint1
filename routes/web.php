@@ -25,3 +25,4 @@ Route::post('StudyProgram', [StudyProgramController::class,'store'])->name('Stud
 Route::get('StudyProgram/{program}',[StudyProgramController::class,'show'])->name('StudyProgram.show');
 Route::get('StudyProgram/{program}/edit',[StudyProgramController::class,'edit'])->name('StudyProgram.edit');
 Route::put('StudyProgram/{program}', [StudyProgramController::class,'update']) ->name('StudyProgram.update');
+Route::delete('StudyProgram{program}',[StudyProgramController::class,'destroy']) ->name('StudyProgram.destroy');
