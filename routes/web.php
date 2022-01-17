@@ -3,6 +3,7 @@
 use App\Http\Controllers;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\StudyProgramController;
+use App\Http\Controllers\VirtualMachineController;
 
 /*
 |--------------------------------------------------------------------------
@@ -26,3 +27,6 @@ Route::get('StudyProgram/{program}',[StudyProgramController::class,'show'])->nam
 Route::get('StudyProgram/{program}/edit',[StudyProgramController::class,'edit'])->name('StudyProgram.edit');
 Route::put('StudyProgram/{program}', [StudyProgramController::class,'update']) ->name('StudyProgram.update');
 Route::delete('StudyProgram{program}',[StudyProgramController::class,'destroy']) ->name('StudyProgram.destroy');
+
+Route::get('VirtualMachine',[VirtualMachineController::class,'index'])->name('VirtualMachine.index');
+Route::get('VirtualMachine/create',[VirtualMachineController::class,'create'])->name('VirtualMachine.create');
