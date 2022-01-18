@@ -9,17 +9,19 @@ class VirtualMachineController extends Controller
 {
     //función index para máquinas virtuales
     public function index(){
-        return "Index de todas las máquinas virtuales";
+        $virtualMachines=VirtualMachine::paginate();
+        return view('VirtualMachines.index',compact('virtualMachines'));
     }
 
     //función crear máquina virtual
     public function create(){
-        return "Aquí se creará una máquina virtual";
+        return view('VirtualMachines.create');
 
     }
-    //función listar máquinas virtuales
-    public function show(){
-        return "Aquí se listarán todas las máquinas virtuales";
+    //función mostrar máquinas virtuales
+    public function show($id){
+        $virtualMachine=VirtualMachine::find($id);
+        return view('VirtualMachines.show', compact('virtualMachine'));
     }
 
     //función update máquina virtual
