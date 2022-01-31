@@ -18,6 +18,27 @@ class VirtualMachineController extends Controller
         return view('VirtualMachines.create');
 
     }
+
+    //función guardar máquina virtual
+    public function store(Request $request){
+
+        $virtualMachine=new VirtualMachine();
+        $virtualMachine->user_id='14';
+        $virtualMachine->Name = $request->Name;
+        $virtualMachine->OS = $request->OS;
+        $virtualMachine->Version = $request->Version;
+        $virtualMachine->Ram_size = $request->Ram_size;
+        $virtualMachine->Disk_capacity = $request->Disk_capacity;
+        $virtualMachine->Description = $request->Description;
+        $virtualMachine->Power_on=false;
+        $virtualMachine->created_at= date('Y-m-d H:i:s');
+        $virtualMachine->updated_at= date('Y-m-d H:i:s');
+
+        $virtualMachine->save();
+
+    
+    }
+
     //función mostrar máquinas virtuales
     public function show($id){
         $virtualMachine=VirtualMachine::find($id);

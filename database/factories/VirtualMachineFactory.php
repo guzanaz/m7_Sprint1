@@ -28,10 +28,10 @@ class VirtualMachineFactory extends Factory
             'Name'=>$this->faker->sentence(),
             'OS'=>$this->faker->randomElement(['Linux','MacOS','Windows']),
             'Version'=>$this->faker->sentence(),
-            'Ram size'=>$this->faker->randomElement(['4GB','6GB','8GB','16GB']), 
-            'Disk capacity'=>$this->faker->randomElement(['8GB','16GB','24GB','32GB','64GB']),
+            'Ram_size'=>$this->faker->randomElement(['4GB','6GB','8GB','16GB']), 
+            'Disk_capacity'=>$this->faker->randomElement(['8GB','16GB','24GB','32GB','64GB']),
             'Description'=>$this->faker->paragraph(),
-            'Power on'=>$this->faker->boolean(),
+            'Power_on'=>$this->faker->boolean('false'),
         ];
     }
 }

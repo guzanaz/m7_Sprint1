@@ -17,16 +17,16 @@ class VirtualMachine extends Migration
             $table-> id();//pk
             //añadir user id como fk
             $table->unsignedBigInteger('user_id');
-            $table->foreign('user_id')->references('id')->on('users');
+            $table->foreign('user_id')->references('id')->on('users')->nullable();
             //resto de info
             $table-> string('Name');
             $table-> string('OS');
             $table-> string('Version');
-            $table-> string('Ram size');
-            $table-> string('Disk capacity');
+            $table-> string('Ram_size');
+            $table-> string('Disk_capacity');
             $table-> longText('Description');
             $table-> timestamps();//created_at updated_at
-            $table-> boolean('Power on');
+            $table-> boolean('Power_on');
         });
     }
 
