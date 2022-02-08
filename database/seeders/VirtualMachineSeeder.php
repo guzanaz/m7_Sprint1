@@ -15,6 +15,6 @@ class VirtualMachineSeeder extends Seeder
     public function run()
     {
         //
-        VirtualMachine::factory(300)->create();
+        VirtualMachine::factory(10)->create();
     }
 }
