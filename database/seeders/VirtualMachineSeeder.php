@@ -17,4 +17,5 @@ class VirtualMachineSeeder extends Seeder
         //
         VirtualMachine::factory(10)->create();
     }
+    
 }
