@@ -10,9 +10,14 @@
     <li><strong>Id: </strong>{{$virtualMachine->id}}</li>
     <li><strong>OS: </strong>{{$virtualMachine->OS}}</li>
     <li><strong>OS Version: </strong>{{$virtualMachine->Version}}</li>
+    <li><strong>Descripció: </strong>{{$virtualMachine->Description}}</li>
 </ul>
 <p>
-    <a href="">Editar Màquina Virtual </a> |
-    <a href="">Eliminar Màquina Virtual </a>
+    <a href="{{route('VirtualMachine.edit',$virtualMachine)}}">Editar Màquina Virtual </a> |
 </p>
+<form action="{{route('VirtualMachine.destroy',$virtualMachine)}}" method="POST">
+    @csrf
+    @method('delete')
+    <button type="submit">Eliminar</button>
+</form>
 @endsection

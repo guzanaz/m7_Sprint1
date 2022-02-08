@@ -31,4 +31,7 @@ Route::delete('StudyProgram{program}',[StudyProgramController::class,'destroy'])
 Route::get('VirtualMachine',[VirtualMachineController::class,'index'])->name('VirtualMachine.index');
 Route::get('VirtualMachine/create',[VirtualMachineController::class,'create'])->name('VirtualMachine.create');
 Route::post('VirtualMachine', [VirtualMachineController::class,'store'])->name('VirtualMachine.store');
-Route::get('VirtualMachine/show/{id}',[VirtualMachineController::class,'show'])->name('VirtualMachine.show');
+Route::get('VirtualMachine/show/{virtualMachine}',[VirtualMachineController::class,'show'])->name('VirtualMachine.show');
+Route::get('VirtualMachine/{virtualMachine}/edit',[VirtualMachineController::class,'edit'])->name('VirtualMachine.edit');
+Route::put('VirtualMachine/{virtualMachine}', [VirtualMachineController::class,'update'])->name('VirtualMachine.update');
+Route::delete('VirtualMachine{virtualMachine}',[VirtualMachineController::class,'destroy'])->name('VirtualMachine.destroy');

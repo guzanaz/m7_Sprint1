@@ -1,15 +1,16 @@
 @extends('layouts.app')
 
-@section('title','createVirtualMachine')
+@section('title','editVirtualMachine')
 
 @section('content')
-<h1>Crear Nova Màquina Virtual</h1>
-<form action="{{route('VirtualMachine.store')}}" method="POST">
+<h1>Editar Màquina Virtual</h1>
+<form action="{{route('VirtualMachine.update',$virtualMachine)}}" method="POST">
     @csrf
+    @method('put')
     <label>
         Nom
         <br>
-        <input type="text" name="Name" value="{{old('Name')}}">
+        <input type="text" name="Name" value="{{old('Name',$virtualMachine->Name)}}">
     </label>
     @error('Name')
     <br>
@@ -22,7 +23,7 @@
     <label> Sistema Operatiu
     <br>
         <select name="OS" id="OS">
-            <option selected disabled>tria una opció</option>
+            <option selected>{{old('OS',$virtualMachine->OS)}}</option>
             <option value="Linux">Linux</option>
             <option value="MacOS">MacOS</option>
             <option value="Windows">Windows</option>
@@ -39,7 +40,7 @@
     <label>
         Versió
         <br>
-        <input type="text" name="Version" value="{{old('Version')}}">
+        <input type="text" name="Version" value="{{old('Version',$virtualMachine->Version)}}">
     </label>
     @error('Version')
     <br>
@@ -52,7 +53,7 @@
     <label> Mida de la memòria RAM
     <br>
         <select name="Ram_size" id="Ram_size">
-            <option selected disabled>tria una opció</option>
+            <option selected>{{old('Ram_size',$virtualMachine->Ram_size)}}</option>
             <option value="4GB">4GB</option>
             <option value="6GB">6GB</option>
             <option value="8GB">8GB</option>
@@ -70,14 +71,14 @@
     <label> Capacitat del disc dur
     <br>
         <select name="Disk_capacity" id="Disk_capacity">
-            <option selected disabled>tria una opció</option>
-            <option value="4GB">4GB</option>
-            <option value="6GB">6GB</option>
-            <option value="8GB">8GB</option>
-            <option value="16GB">16GB</option>
-            <option value="24GB">24GB</option>
-            <option value="32GB">32GB</option>
-            <option value="64GB">64GB</option>
+            <option selected>{{old('Disk_capacity', $virtualMachine->Disk_capacity)}}</option>                      
+                <option value="4GB">4GB</option>
+                <option value="6GB">6GB</option>
+                <option value="8GB">8GB</option>
+                <option value="16GB">16GB</option>
+                <option value="24GB">24GB</option>
+                <option value="32GB">32GB</option>
+                <option value="64GB">64GB</option>
         </select>
     </label>
     @error('Disk_capacity')
@@ -91,7 +92,7 @@
     <label>
         Descripció
         <br>
-        <textarea name="Description" rows="10">{{old('Description')}}</textarea>
+        <textarea name="Description" rows="10">{{old('Description',$virtualMachine->Description)}}</textarea>
     </label>
     @error('Description')
     <br>
@@ -100,7 +101,7 @@
     @enderror
     <br>
     <br>
-    <button type="submit">Crear Màquina Virtual</button>
+    <button type="submit">Actualizar Màquina Virtual</button>
 </form>
 
 @endsection

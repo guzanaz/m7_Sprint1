@@ -116,7 +116,12 @@ return [
 
     'attributes' => [
         'Name'=>'Nom',
-        'Classroom'=>'Aula'
+        'Classroom'=>'Aula',
+        'OS'=>'Sistema Operatiu',
+        'Version'=>'Versió',
+        'Ram_size'=>'Mida de la memòria RAM',
+        'Disk_capacity'=>'Capacitat del disc dur',
+        'Description' => 'Descripció'
     ],
 
 ];
