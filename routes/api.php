@@ -18,18 +18,18 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::get('/StudyProgram', 'app/Http/Controllers/StudyProgramController@index');//mostrar todos los registros
-Route::get('/StudyProgram/create', 'app/Http/Controllers/StudyProgramController@create');//crear un registro
-Route::post('/StudyProgram', 'app/Http/Controllers/StudyProgramController@store');//guardar un registro
-Route::get('/StudyProgram/{program}', 'app/Http/Controllers/StudyProgramController@show');//mostrar un registro
-Route::get('/StudyProgram/{program}/edit', 'app/Http/Controllers/StudyProgramController@edit');//editar un registro
-Route::put('/StudyProgram/{program}', 'app/Http/Controllers/StudyProgramController@update');//actualizar un registro
-Route::delete('/StudyProgram{program}', 'app/Http/Controllers/StudyProgramController@destroy');//eliminar un registro
+Route::get('StudyProgram',[StudyProgramController::class,'index']);
+Route::get('StudyProgram/create',[StudyProgramController::class,'create']);
+Route::post('StudyProgram', [StudyProgramController::class,'store']);
+Route::get('StudyProgram/{program}',[StudyProgramController::class,'show']);
+Route::get('StudyProgram/{program}/edit',[StudyProgramController::class,'edit']);
+Route::put('StudyProgram/{program}', [StudyProgramController::class,'update']);
+Route::delete('StudyProgram{program}',[StudyProgramController::class,'destroy']);
 
-Route::get('/VirtualMachine', 'app/Http/Controllers/VirtualMachineController@index');
-Route::get('/VirtualMachine/create','app/Http/Controllers/VirtualMachineController@create');
-Route::post('/VirtualMachine', 'app/Http/Controllers/VirtualMachineController@store');
-Route::get('/VirtualMachine/show/{virtualMachine}','app/Http/Controllers/VirtualMachineController@show');
-Route::get('/VirtualMachine/{virtualMachine}/edit','app/Http/Controllers/VirtualMachineController@edit');
-Route::put('/VirtualMachine/{virtualMachine}', 'app/Http/Controllers/VirtualMachineController@update');
-Route::delete('/VirtualMachine{virtualMachine}','app/Http/Controllers/VirtualMachineController@destroy');
+Route::get('VirtualMachine',[VirtualMachineController::class,'index']);
+Route::get('VirtualMachine/create',[VirtualMachineController::class,'create']);
+Route::post('VirtualMachine', [VirtualMachineController::class,'store']);
+Route::get('VirtualMachine/show/{virtualMachine}',[VirtualMachineController::class,'show']);
+Route::get('VirtualMachine/{virtualMachine}/edit',[VirtualMachineController::class,'edit']);
+Route::put('VirtualMachine/{virtualMachine}', [VirtualMachineController::class,'update']);
+Route::delete('VirtualMachine{virtualMachine}',[VirtualMachineController::class,'destroy']);
