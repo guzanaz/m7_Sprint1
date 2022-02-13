@@ -17,19 +17,20 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
-
-Route::get('StudyProgram',[StudyProgramController::class,'index']);
-Route::get('StudyProgram/create',[StudyProgramController::class,'create']);
-Route::post('StudyProgram', [StudyProgramController::class,'store']);
-Route::get('StudyProgram/{program}',[StudyProgramController::class,'show']);
-Route::get('StudyProgram/{program}/edit',[StudyProgramController::class,'edit']);
-Route::put('StudyProgram/{program}', [StudyProgramController::class,'update']);
-Route::delete('StudyProgram{program}',[StudyProgramController::class,'destroy']);
-
-Route::get('VirtualMachine',[VirtualMachineController::class,'index']);
-Route::get('VirtualMachine/create',[VirtualMachineController::class,'create']);
-Route::post('VirtualMachine', [VirtualMachineController::class,'store']);
-Route::get('VirtualMachine/show/{virtualMachine}',[VirtualMachineController::class,'show']);
-Route::get('VirtualMachine/{virtualMachine}/edit',[VirtualMachineController::class,'edit']);
-Route::put('VirtualMachine/{virtualMachine}', [VirtualMachineController::class,'update']);
-Route::delete('VirtualMachine{virtualMachine}',[VirtualMachineController::class,'destroy']);
+Route::group(['middleware' => ['cors']], function () {
+    Route::get('StudyProgram',[StudyProgramController::class,'index'])->name('StudyProgram.index');
+    Route::get('StudyProgram/create',[StudyProgramController::class,'create'])->name('StudyProgram.create');
+    Route::post('StudyProgram', [StudyProgramController::class,'store'])->name('StudyProgram.store');
+    Route::get('StudyProgram/{program}',[StudyProgramController::class,'show'])->name('StudyProgram.show');
+    Route::get('StudyProgram/{program}/edit',[StudyProgramController::class,'edit'])->name('StudyProgram.edit');
+    Route::put('StudyProgram/{program}', [StudyProgramController::class,'update']) ->name('StudyProgram.update');
+    Route::delete('StudyProgram{program}',[StudyProgramController::class,'destroy']) ->name('StudyProgram.destroy');
+    
+    Route::get('VirtualMachine',[VirtualMachineController::class,'index'])->name('VirtualMachine.index');
+    Route::get('VirtualMachine/create',[VirtualMachineController::class,'create'])->name('VirtualMachine.create');
+    Route::post('VirtualMachine', [VirtualMachineController::class,'store'])->name('VirtualMachine.store');
+    Route::get('VirtualMachine/show/{virtualMachine}',[VirtualMachineController::class,'show'])->name('VirtualMachine.show');
+    Route::get('VirtualMachine/{virtualMachine}/edit',[VirtualMachineController::class,'edit'])->name('VirtualMachine.edit');
+    Route::put('VirtualMachine/{virtualMachine}', [VirtualMachineController::class,'update'])->name('VirtualMachine.update');
+    Route::delete('VirtualMachine{virtualMachine}',[VirtualMachineController::class,'destroy'])->name('VirtualMachine.destroy');
+});
