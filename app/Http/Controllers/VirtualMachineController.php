@@ -1,7 +1,6 @@
 <?php
 
 namespace App\Http\Controllers;
-
 use App\Models\VirtualMachine;
 use Illuminate\Http\Request;
 
@@ -11,6 +10,11 @@ class VirtualMachineController extends Controller
     public function index(){
         $virtualMachines=VirtualMachine::orderBy('id','desc')->paginate();
         return view('VirtualMachines.index',compact('virtualMachines'));
+    }
+
+    public function indexApi(){
+        $virtualMachines=VirtualMachine::all();
+        return $virtualMachines;
     }
 
     //función crear máquina virtual

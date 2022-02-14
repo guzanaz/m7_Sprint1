@@ -1,7 +1,6 @@
 <?php
 
 namespace App\Http\Controllers;
-
 use App\Models\StudyProgram;
 use Illuminate\Http\Request;
 use Symfony\Contracts\Service\Attribute\Required;
@@ -11,8 +10,12 @@ class StudyProgramController  extends Controller
 {
     public function index(){
         $programs = StudyProgram::orderBy('id','desc')->paginate();
-        
         return view('StudyProgram.index', compact('programs'));
+    }
+
+    public function indexApi(){
+        $programs = StudyProgram::all();
+        return $programs;
     }
 
     public function create(){
@@ -21,6 +24,7 @@ class StudyProgramController  extends Controller
 
     public function store(StoreStudyProgram $request){
         $program =StudyProgram::create($request->all());
+        
         return redirect()->route('StudyProgram.show',$program);
     }
 
