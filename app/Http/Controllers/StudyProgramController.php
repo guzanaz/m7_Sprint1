@@ -22,7 +22,16 @@ class StudyProgramController  extends Controller
         return view('StudyProgram.create');
     }
 
+    public function createApi(){
+        return view('StudyProgram.create');
+    }
+
     public function store(StoreStudyProgram $request){
+        $program =StudyProgram::create($request->all());
+        return redirect()->route('StudyProgram.show',$program);
+    }
+
+    public function storeApi(StoreStudyProgram $request){
         $program =StudyProgram::create($request->all());
         
         return redirect()->route('StudyProgram.show',$program);
