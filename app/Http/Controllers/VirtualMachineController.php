@@ -136,16 +136,8 @@ class VirtualMachineController extends Controller
     //función editar máquina virtual para la api se hace con vue
 
     //función update máquina virtual
-    public function updateApi(Request $request, VirtualMachine $virtualMachine){
-
-        $request->validate([
-            'Name' => 'required',
-            'OS' => 'required',
-            'Version' => 'required',
-            'Ram_size' => 'required',
-            'Disk_capacity' => 'required',
-            'Description' => 'required',
-        ]);
+    public function updateApi(Request $request, $id){
+        $virtualMachine = VirtualMachine::find($id);
         $virtualMachine->user_id='14';
         $virtualMachine->Name = $request->Name;
         $virtualMachine->OS = $request->OS;
@@ -163,8 +155,7 @@ class VirtualMachineController extends Controller
     //función delete máquina virtual
     public function destroyApi($id){
         $virtualMachine = VirtualMachine::find($id);
-        $virtualMachine->delete();
-        
+        $virtualMachine->delete();  
         return $virtualMachine;
     }
 

@@ -22,6 +22,6 @@ Route::group(['middleware' => ['cors']], function () {
     Route::get('VirtualMachine',[VirtualMachineController::class,'indexApi'])->name('VirtualMachine.indexApi');
     Route::post('VirtualMachine', [VirtualMachineController::class,'storeApi'])->name('VirtualMachine.storeApi');
     Route::get('VirtualMachine/show/{virtualMachine}',[VirtualMachineController::class,'showApi'])->name('VirtualMachine.showApi');
-    Route::put('VirtualMachine/{virtualMachine}', [VirtualMachineController::class,'updateApi'])->name('VirtualMachine.updateApi');
+    Route::put('VirtualMachine/{id}', [VirtualMachineController::class,'updateApi'])->name('VirtualMachine.updateApi');
     Route::delete('VirtualMachine/{id}',[VirtualMachineController::class,'destroyApi'])->name('VirtualMachine.destroyApi');
 });
