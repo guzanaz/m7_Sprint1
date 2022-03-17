@@ -26,10 +26,9 @@ class AuthController extends Controller {
         }
     }
  
-    public function process_signup(Request $request)
+    public function login(Request $request)
     {
         $this->validate($request, [ 
-            'username' => 'required',
             'email' => 'required',
             'password' => 'required|confirmed|min:6',
         ]);

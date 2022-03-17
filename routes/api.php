@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\VirtualMachineController;
 use App\Http\Controllers\AuthController;
+use Illuminate\Auth\Events\Login;
 
 /*
 |--------------------------------------------------------------------------
@@ -22,12 +23,9 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 
 
-    Route::get('register', [AuthController::class, 'show_signup_form'])->name('register');
-    Route::post('register', [AuthController::class, 'process_signup']);
-
-
 
 Route::group(['middleware' => ['cors']], function () {  
+    Route::post('login',[LoginController::class,'loginApi'])->name('login.loginApi');
     Route::get('VirtualMachine',[VirtualMachineController::class,'indexApi'])->name('VirtualMachine.indexApi');
     Route::post('VirtualMachine', [VirtualMachineController::class,'storeApi'])->name('VirtualMachine.storeApi');
     Route::get('VirtualMachine/show/{virtualMachine}',[VirtualMachineController::class,'showApi'])->name('VirtualMachine.showApi');
