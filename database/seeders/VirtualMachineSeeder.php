@@ -15,7 +15,7 @@ class VirtualMachineSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('VirtualMachine')->insert([
+        DB::table('virtual_machine')->insert([
             'user_id' => 1,
             'Name'=>'M1_UF1_A1',
             'OS'=>'Linux',
@@ -23,7 +23,7 @@ class VirtualMachineSeeder extends Seeder
             'Ram_size'=>'16GB', 
             'Disk_capacity'=>'8GB',
             'Description'=>'Esta es una descripción',
-            'Power_on'=>'false'
+            'Power_on'=>1,
 
         ]);
         //
