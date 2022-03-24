@@ -11,7 +11,7 @@ class LoginController extends Controller
     //
     public function loginApi(Request $request){
         $request -> validate([
-            'email' => ['required'],
+            'email' => ['required', 'email'],
             'password' => ['required']
         ]);
 
@@ -20,7 +20,7 @@ class LoginController extends Controller
         }
 
         throw ValidationException::withMessages([
-            'email' => ['The provided credentials are incorrect.']
+            'email' => ['Les credencials proporcionades no coincideixen amb els nostres registres.']
         ]);
        
     }

@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\VirtualMachineController;
 use App\Http\Controllers\AuthController;
 use Illuminate\Auth\Events\Login;
+use App\Http\Controllers\LoginController;
 
 /*
 |--------------------------------------------------------------------------
@@ -21,11 +22,11 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-
-
+//Login Route
+Route::post('/login',[LoginController::class,'loginApi'])->name('login.loginApi');
 
 Route::group(['middleware' => ['cors']], function () {  
-    Route::post('login',[LoginController::class,'loginApi'])->name('login.loginApi');
+    //Virtual Machines
     Route::get('VirtualMachine',[VirtualMachineController::class,'indexApi'])->name('VirtualMachine.indexApi');
     Route::post('VirtualMachine', [VirtualMachineController::class,'storeApi'])->name('VirtualMachine.storeApi');
     Route::get('VirtualMachine/show/{virtualMachine}',[VirtualMachineController::class,'showApi'])->name('VirtualMachine.showApi');
