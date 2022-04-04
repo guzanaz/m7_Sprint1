@@ -25,6 +25,9 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 //Login Route
 Route::post('/login',[LoginController::class,'loginApi'])->name('login.loginApi');
 
+//logout Route
+Route::post('/logout',[LoginController::class,'logoutApi'])->name('logout.logoutApi');
+
 Route::group(['middleware' => ['cors']], function () {  
     //Virtual Machines
     Route::get('VirtualMachine',[VirtualMachineController::class,'indexApi'])->name('VirtualMachine.indexApi');
