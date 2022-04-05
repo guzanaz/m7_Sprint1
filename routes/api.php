@@ -18,15 +18,17 @@ use App\Http\Controllers\LoginController;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
-});
+
 
 //Login Route
 Route::post('/login',[LoginController::class,'loginApi'])->name('login.loginApi');
 
 //logout Route
 Route::post('/logout',[LoginController::class,'logoutApi'])->name('logout.logoutApi');
+//api user
+Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
+    return $request->user();
+});
 
 Route::group(['middleware' => ['cors']], function () {  
     //Virtual Machines
