@@ -3,10 +3,15 @@
 namespace App\Http\Controllers;
 use App\Models\VirtualMachine;
 use Illuminate\Http\Request;
-use VirtualMachine as GlobalVirtualMachine;
+//use VirtualMachine as GlobalVirtualMachine;
 
 class VirtualMachineController extends Controller
-{   
+{
+    public function __construct()
+    {
+        $this->middleware('auth:sanctum');
+    }
+
     //función index para máquinas virtuales
     public function index(){
         $virtualMachines=VirtualMachine::orderBy('id','desc')->paginate();
@@ -94,10 +99,30 @@ class VirtualMachineController extends Controller
     /**
      * API FUNCTIONS
      */
+    /* OLD !!!
     public function indexApi(){
         $virtualMachines=VirtualMachine::all();
         return $virtualMachines;
     }
+    */
+    public function indexApi(Request $request){
+        // Recuperar el usuario de Proxmox correspondiente al usuario de Virtualio (el alumno)
+
+        $user = $request->user();
+        $proxmoxUser = $user->proxmox_user;
+        $proxmoxPassword = $user->proxmox_password;
+        
+        return $proxmoxPassword;
+        // Conectarme a la API de Proxmox con el usuario obtenido
+
+        // Pedir a la API de Proxmox el listado de màquinas del usuario
+
+        // (procesa la info recibida, si hace falta)
+
+        // Devolver a VUE un JSON con la lista de màquinas
+    }
+
+
     //función crear máquina virtual para la api se hace con vue
  
     //función guardar máquina virtual

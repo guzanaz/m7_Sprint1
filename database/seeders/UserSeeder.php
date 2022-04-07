@@ -23,7 +23,9 @@ class UserSeeder extends Seeder
             'name' => 'Daniela',
             'lastname' => 'Gallardo',
             'email' => 'daniela@test.com',
-            'password' => Hash::make('danielapass')
+            'password' => Hash::make('danielapass'),
+            'proxmox_user' => 'root',
+            'proxmox_password' => 'Daniel4@Andr3i'
         ]);
         User::factory(50)->create();
     }

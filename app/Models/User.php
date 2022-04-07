@@ -22,6 +22,8 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'proxmox_user',
+        'proxmox_password'
     ];
 
     /**

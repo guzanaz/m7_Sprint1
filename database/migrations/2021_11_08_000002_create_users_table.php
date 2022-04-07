@@ -25,6 +25,8 @@ class CreateUsersTable extends Migration
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->string('avatar')->nullable();
+            $table->string('proxmox_user')->unique()->nullable();
+            $table->string('proxmox_password')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });
