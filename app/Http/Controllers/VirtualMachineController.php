@@ -1,9 +1,14 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use App\Models\VirtualMachine;
+use Error;
 use Illuminate\Http\Request;
 //use VirtualMachine as GlobalVirtualMachine;
+use Proxmox\PVE;
+
+use function PHPUnit\Framework\returnSelf;
 
 class VirtualMachineController extends Controller
 {
@@ -13,19 +18,21 @@ class VirtualMachineController extends Controller
     }
 
     //función index para máquinas virtuales
-    public function index(){
-        $virtualMachines=VirtualMachine::orderBy('id','desc')->paginate();
-        return view('VirtualMachines.index',compact('virtualMachines'));
+    public function index()
+    {
+        $virtualMachines = VirtualMachine::orderBy('id', 'desc')->paginate();
+        return view('VirtualMachines.index', compact('virtualMachines'));
     }
 
     //función crear máquina virtual
-    public function create(){
+    public function create()
+    {
         return view('VirtualMachines.create');
-
     }
 
     //función guardar máquina virtual
-    public function store(Request $request){
+    public function store(Request $request)
+    {
         $request->validate([
             'Name' => 'required',
             'OS' => 'required',
@@ -35,35 +42,37 @@ class VirtualMachineController extends Controller
             'Description' => 'required',
         ]);
 
-        $virtualMachine =new VirtualMachine();
+        $virtualMachine = new VirtualMachine();
 
-        $virtualMachine->user_id='14';
+        $virtualMachine->user_id = '14';
         $virtualMachine->Name = $request->Name;
         $virtualMachine->OS = $request->OS;
         $virtualMachine->Version = $request->Version;
         $virtualMachine->Ram_size = $request->Ram_size;
         $virtualMachine->Disk_capacity = $request->Disk_capacity;
         $virtualMachine->Description = $request->Description;
-        $virtualMachine->Power_on=false;
-        $virtualMachine->created_at= date('Y-m-d H:i:s');
-        $virtualMachine->updated_at= date('Y-m-d H:i:s');
+        $virtualMachine->Power_on = false;
+        $virtualMachine->created_at = date('Y-m-d H:i:s');
+        $virtualMachine->updated_at = date('Y-m-d H:i:s');
 
         $virtualMachine->save();
         return view('VirtualMachines.show', compact('virtualMachine'));
-    
     }
 
     //función mostrar máquinas virtuales
-    public function show(VirtualMachine $virtualMachine){
+    public function show(VirtualMachine $virtualMachine)
+    {
         return view('VirtualMachines.show', compact('virtualMachine'));
     }
 
-    public function edit(VirtualMachine $virtualMachine){
+    public function edit(VirtualMachine $virtualMachine)
+    {
         return view('VirtualMachines.edit', compact('virtualMachine'));
     }
 
     //función update máquina virtual
-    public function update(Request $request, VirtualMachine $virtualMachine){
+    public function update(Request $request, VirtualMachine $virtualMachine)
+    {
 
         $request->validate([
             'Name' => 'required',
@@ -76,22 +85,23 @@ class VirtualMachineController extends Controller
 
 
 
-        $virtualMachine->user_id='14';
+        $virtualMachine->user_id = '1';
         $virtualMachine->Name = $request->Name;
         $virtualMachine->OS = $request->OS;
         $virtualMachine->Version = $request->Version;
         $virtualMachine->Ram_size = $request->Ram_size;
         $virtualMachine->Disk_capacity = $request->Disk_capacity;
         $virtualMachine->Description = $request->Description;
-        $virtualMachine->Power_on=false;
-        $virtualMachine->created_at= date('Y-m-d H:i:s');
-        $virtualMachine->updated_at= date('Y-m-d H:i:s');
+        $virtualMachine->Power_on = false;
+        $virtualMachine->created_at = date('Y-m-d H:i:s');
+        $virtualMachine->updated_at = date('Y-m-d H:i:s');
         $virtualMachine->save();
         return view('VirtualMachines.show', compact('virtualMachine'));
     }
 
     //función delete máquina virtual
-    public function destroy(VirtualMachine $virtualMachine){
+    public function destroy(VirtualMachine $virtualMachine)
+    {
         $virtualMachine->delete();
         return redirect()->route('VirtualMachine.index');
     }
@@ -105,90 +115,137 @@ class VirtualMachineController extends Controller
         return $virtualMachines;
     }
     */
-    public function indexApi(Request $request){
+    public function indexApi(Request $request)
+    {
+
         // Recuperar el usuario de Proxmox correspondiente al usuario de Virtualio (el alumno)
-
         $user = $request->user();
-        $proxmoxUser = $user->proxmox_user;
-        $proxmoxPassword = $user->proxmox_password;
-        
-        return $proxmoxPassword;
+
         // Conectarme a la API de Proxmox con el usuario obtenido
+        $proxmox = new PVE('95.129.255.249', $user->proxmox_user, $user->proxmox_password, 18006, 'pam');
 
-        // Pedir a la API de Proxmox el listado de màquinas del usuario
-
+        // Pedir a la API de Proxmox el listado de nodos del usuario
         // (procesa la info recibida, si hace falta)
-
         // Devolver a VUE un JSON con la lista de màquinas
+        return $proxmox->nodes()->node('pvedaw')->qemu()->get();
     }
 
 
     //función crear máquina virtual para la api se hace con vue
- 
+
+    //OLD!!
     //función guardar máquina virtual
-    public function storeApi (Request $request){
-        $request->validate([
-            'Name' => 'required',
-            'OS' => 'required',
-            'Version' => 'required',
-            'Ram_size' => 'required',
-            'Disk_capacity' => 'required',
-            'Description' => 'required',
-        ]);
+    // public function storeApi(Request $request)
+    // {
+    //     $request->validate([
+    //         'Name' => 'required',
+    //         'OS' => 'required',
+    //         'Version' => 'required',
+    //         'Ram_size' => 'required',
+    //         'Disk_capacity' => 'required',
+    //         'Description' => 'required',
+    //     ]);
 
-        $virtualMachine =new VirtualMachine();
+    //     $virtualMachine = new VirtualMachine();
 
-        $virtualMachine->user_id='14';
-        $virtualMachine->Name = $request->Name;
-        $virtualMachine->OS = $request->OS;
-        $virtualMachine->Version = $request->Version;
-        $virtualMachine->Ram_size = $request->Ram_size;
-        $virtualMachine->Disk_capacity = $request->Disk_capacity;
-        $virtualMachine->Description = $request->Description;
-        $virtualMachine->Power_on=false;
-        $virtualMachine->created_at= date('Y-m-d H:i:s');
-        $virtualMachine->updated_at= date('Y-m-d H:i:s');
+    //     $virtualMachine->user_id = '1';
+    //     $virtualMachine->Name = $request->Name;
+    //     $virtualMachine->OS = $request->OS;
+    //     $virtualMachine->Version = $request->Version;
+    //     $virtualMachine->Ram_size = $request->Ram_size;
+    //     $virtualMachine->Disk_capacity = $request->Disk_capacity;
+    //     $virtualMachine->Description = $request->Description;
+    //     $virtualMachine->Power_on = false;
+    //     $virtualMachine->created_at = date('Y-m-d H:i:s');
+    //     $virtualMachine->updated_at = date('Y-m-d H:i:s');
 
-        $virtualMachine->save();
-        return $virtualMachine;
+    //     $virtualMachine->save();
+    //     return $virtualMachine;
+    // }
+
+    //función store máquinas virtuales
+    public function storeApi(Request $request)
+    {
+        $user = $request->user();
+        $proxmox = new PVE('95.129.255.249', $user->proxmox_user, $user->proxmox_password, 18006, 'pam');
+        $params =$request->all();
+        $params['vmid'] = $proxmox->cluster()->NextId(array())->get()['data']; // Obtenim el nextId i l'afegim a l'array de paràmetres
+
+        /*$request->validate([
+            'name' => 'required',
+            'pool' => 'required',
+            'ide2' => 'required',
+            'ostype' => 'required',
+            'scsihw' => 'required',
+            'scsi0' => 'required',
+            'sockets' => 'required',
+            'cores' => 'required',
+            'numa' => 'required',
+            'memory' => 'required',
+            'net0' => 'required',
+            'balloon' => 'required',
+            'vga' => 'required',
+        ]);*/
+
+
+      
+        return $proxmox->nodes()->node('pvedaw')->qemu()->post($params);
+        
+        
     }
 
+
+
     //función mostrar máquinas virtuales
-    public function showApi(VirtualMachine $virtualMachine){
-        return $virtualMachine;
+    public function showApi(Request $request, $virtualMachine)
+    {
+        $user = $request->user();
+        $proxmox = new PVE('95.129.255.249', $user->proxmox_user, $user->proxmox_password, 18006, 'pam');
+        return response()->json($proxmox->nodes()->node('pvedaw')->qemu()->vmid($virtualMachine)->status()->current()->get());
+    }
+
+    // arrancar vm
+    public function startVM(Request $request, $virtualMachine)
+    {
+
+        $user = $request->user();
+        $proxmox = new PVE('95.129.255.249', $user->proxmox_user, $user->proxmox_password, 18006, 'pam');
+        return response()->json($proxmox->nodes()->node('pvedaw')->qemu()->vmid($virtualMachine)->status()->start()->post());
+    }
+
+    // parar vm
+    public function stopVM(Request $request, $virtualMachine)
+    {
+        $user = $request->user();
+        $proxmox = new PVE('95.129.255.249', $user->proxmox_user, $user->proxmox_password, 18006, 'pam');
+        return response()->json($proxmox->nodes()->node('pvedaw')->qemu()->vmid($virtualMachine)->status()->stop()->post());
     }
 
     //función editar máquina virtual para la api se hace con vue
 
     //función update máquina virtual
-    public function updateApi(Request $request, $id){
+    public function updateApi(Request $request, $id)
+    {
         $virtualMachine = VirtualMachine::find($id);
-        $virtualMachine->user_id='14';
+        $virtualMachine->user_id = '14';
         $virtualMachine->Name = $request->Name;
         $virtualMachine->OS = $request->OS;
         $virtualMachine->Version = $request->Version;
         $virtualMachine->Ram_size = $request->Ram_size;
         $virtualMachine->Disk_capacity = $request->Disk_capacity;
         $virtualMachine->Description = $request->Description;
-        $virtualMachine->Power_on=false;
-        $virtualMachine->created_at= date('Y-m-d H:i:s');
-        $virtualMachine->updated_at= date('Y-m-d H:i:s');
+        $virtualMachine->Power_on = false;
+        $virtualMachine->created_at = date('Y-m-d H:i:s');
+        $virtualMachine->updated_at = date('Y-m-d H:i:s');
         $virtualMachine->save();
         return $virtualMachine;
     }
 
     //función delete máquina virtual
-    public function destroyApi($id){
+    public function destroyApi($id)
+    {
         $virtualMachine = VirtualMachine::find($id);
-        $virtualMachine->delete();  
+        $virtualMachine->delete();
         return $virtualMachine;
     }
-
-
-
-
-
-
-
-
 }

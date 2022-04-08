@@ -33,11 +33,22 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::group(['middleware' => ['cors']], function () {  
     //Virtual Machines
-    Route::get('VirtualMachine',[VirtualMachineController::class,'indexApi'])->name('VirtualMachine.indexApi');
-    Route::post('VirtualMachine', [VirtualMachineController::class,'storeApi'])->name('VirtualMachine.storeApi');
-    Route::get('VirtualMachine/show/{virtualMachine}',[VirtualMachineController::class,'showApi'])->name('VirtualMachine.showApi');
     Route::put('VirtualMachine/{id}', [VirtualMachineController::class,'updateApi'])->name('VirtualMachine.updateApi');
     Route::delete('VirtualMachine/{id}',[VirtualMachineController::class,'destroyApi'])->name('VirtualMachine.destroyApi');
+    
+    //store
+    Route::post('VirtualMachine', [VirtualMachineController::class,'storeApi'])->name('VirtualMachine.storeApi');
+    //list all VMs
+    Route::get('VirtualMachine',[VirtualMachineController::class,'indexApi'])->name('VirtualMachine.indexApi');
+    //show VM specific info
+    Route::get('VirtualMachine/show/{virtualMachine}',[VirtualMachineController::class,'showApi'])->name('VirtualMachine.showApi');
+    //arrancar VM
+    Route::post('VirtualMachine/start/{virtualMachine}',[VirtualMachineController::class,'startVM'])->name('VirtualMachine.startVM');
+    //detener VM
+    Route::post('VirtualMachine/stop/{virtualMachine}',[VirtualMachineController::class,'stopVM'])->name('VirtualMachine.stopVM');
+
+
+
 });
 
 

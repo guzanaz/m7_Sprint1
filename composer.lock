@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "f57af336dc4de18b464d46413d5f0059",
+    "content-hash": "bd4eeb4589eeece2d9d48f4b5453b078",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -1769,6 +1769,67 @@
                 }
             ],
             "time": "2021-10-01T21:08:31+00:00"
+        },
+        {
+            "name": "mrkampf/proxmox-ve",
+            "version": "0.4.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/MrKampf/proxmoxVE.git",
+                "reference": "1fc3f479d13d9f4837356050cb381fe392076d43"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/MrKampf/proxmoxVE/zipball/1fc3f479d13d9f4837356050cb381fe392076d43",
+                "reference": "1fc3f479d13d9f4837356050cb381fe392076d43",
+                "shasum": ""
+            },
+            "require": {
+                "ext-json": "*",
+                "guzzlehttp/guzzle": "*",
+                "lib-curl": "*",
+                "php": "^8.0|7.4"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "Proxmox": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "GPL-3.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "MrKampf",
+                    "email": "hello@mrkampf.com",
+                    "homepage": "https://mrkampf.com",
+                    "role": "Developer"
+                },
+                {
+                    "name": "GitCom",
+                    "email": "info@gitcom.cloud",
+                    "homepage": "https://www.gitcom.cloud",
+                    "role": "Developer / Hosting"
+                }
+            ],
+            "description": "Proxmox VE API Client",
+            "keywords": [
+                "KVM",
+                "OpenVZ",
+                "Proxmox",
+                "Virtualization",
+                "api",
+                "php",
+                "php 7",
+                "php 8"
+            ],
+            "support": {
+                "issues": "https://github.com/MrKampf/proxmoxVE/issues",
+                "source": "https://github.com/MrKampf/proxmoxVE"
+            },
+            "time": "2022-01-06T14:55:02+00:00"
         },
         {
             "name": "nesbot/carbon",
