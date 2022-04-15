@@ -127,8 +127,12 @@ class VirtualMachineController extends Controller
         // Pedir a la API de Proxmox el listado de nodos del usuario
         // (procesa la info recibida, si hace falta)
         // Devolver a VUE un JSON con la lista de màquinas
-        return response($proxmox->nodes()->node('pvedaw')->qemu()->get())
-        ->header('Access-Control-Allow-Credentials', 'true');
+        // return response($proxmox->nodes()->node('pvedaw')->qemu()->get())
+        // ->header('Access-Control-Allow-Credentials', 'true');
+        return response()
+                    -> json($proxmox->nodes()->node('pvedaw')->qemu()->get())
+                    ->header('Access-Control-Allow-Credentials', 'true');
+    
     }
 
 

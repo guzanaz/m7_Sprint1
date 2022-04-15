@@ -28,7 +28,7 @@ return [
 
     'allowed_origins_patterns' => ['*'],
 
-    'allowed_headers' => ['*'],
+    'allowed_headers' => ['X-Custom-Header', 'Upgrade-Insecure-Requests', 'csrftoken', 'x-csrf-token', 'CSRFToken', 'X-CSRF-TOKEN','Access-Control-Allow-Origin','content-type', 'accept', '*'],
 
     'exposed_headers' => false,
 
