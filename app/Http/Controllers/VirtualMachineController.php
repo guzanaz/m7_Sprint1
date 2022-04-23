@@ -130,8 +130,8 @@ class VirtualMachineController extends Controller
         // return response($proxmox->nodes()->node('pvedaw')->qemu()->get())
         // ->header('Access-Control-Allow-Credentials', 'true');
         return response()
-                    -> json($proxmox->nodes()->node('pvedaw')->qemu()->get())
-                    ->header('Access-Control-Allow-Credentials', 'true');
+                    -> json($proxmox->nodes()->node('pvedaw')->qemu()->get());
+                    // -> header('Access-Control-Allow-Credentials', 'true');
     
     }
 
