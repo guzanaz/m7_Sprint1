@@ -192,8 +192,15 @@ class VirtualMachineController extends Controller
             'vga' => 'required',
         ]);*/
 
+        $response =  [
+            'data' => $proxmox->nodes()->node('pvedaw')->qemu()->post($params),
+            'success' => true,
+            'message' => 'Registration is completed',
+        ];
+
+        return response($response,201);
       
-        return $proxmox->nodes()->node('pvedaw')->qemu()->post($params);
+        // return response()->json($proxmox->nodes()->node('pvedaw')->qemu()->post($params), );
         
     }
 
@@ -207,10 +214,21 @@ class VirtualMachineController extends Controller
         return response()->json($proxmox->nodes()->node('pvedaw')->qemu()->vmid($virtualMachine)->status()->current()->get());
     }
 
+        //función eliminar máquinas virtuales
+        public function destroyApi(Request $request, $virtualMachine)
+        {
+
+            $user = $request->user();
+            $proxmox = new PVE('95.129.255.249', $user->proxmox_user, $user->proxmox_password, 18006, 'pam');
+            // return $virtualMachine;
+            return response()->json($proxmox->nodes()->node('pvedaw')->qemu()->vmid($virtualMachine)->delete());
+        }
+        // /api2/json/nodes/{node}/qemu/{vmid}
+        // /api2/json/nodes/{node}/qemu/{vmid}
+        
     // arrancar vm
     public function startVM(Request $request, $virtualMachine)
     {
-
         $user = $request->user();
         $proxmox = new PVE('95.129.255.249', $user->proxmox_user, $user->proxmox_password, 18006, 'pam');
         return response()->json($proxmox->nodes()->node('pvedaw')->qemu()->vmid($virtualMachine)->status()->start()->post());
@@ -219,13 +237,13 @@ class VirtualMachineController extends Controller
     // parar vm
     public function stopVM(Request $request, $virtualMachine)
     {
+        
         $user = $request->user();
         $proxmox = new PVE('95.129.255.249', $user->proxmox_user, $user->proxmox_password, 18006, 'pam');
         return response()->json($proxmox->nodes()->node('pvedaw')->qemu()->vmid($virtualMachine)->status()->stop()->post());
     }
 
     //función editar máquina virtual para la api se hace con vue
-
     //función update máquina virtual
     public function updateApi(Request $request, $id)
     {
@@ -245,10 +263,10 @@ class VirtualMachineController extends Controller
     }
 
     //función delete máquina virtual
-    public function destroyApi($id)
-    {
-        $virtualMachine = VirtualMachine::find($id);
-        $virtualMachine->delete();
-        return $virtualMachine;
-    }
+    // public function destroyApi($id)
+    // {
+    //     $virtualMachine = VirtualMachine::find($id);
+    //     $virtualMachine->delete();
+    //     return $virtualMachine;
+    // }
 }

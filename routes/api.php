@@ -34,7 +34,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::group(['middleware' => ['cors']], function () {  
     //Virtual Machines
     Route::put('VirtualMachine/{id}', [VirtualMachineController::class,'updateApi'])->name('VirtualMachine.updateApi');
-    Route::delete('VirtualMachine/{id}',[VirtualMachineController::class,'destroyApi'])->name('VirtualMachine.destroyApi');
+   
     
     //store
     Route::post('VirtualMachine', [VirtualMachineController::class,'storeApi'])->name('VirtualMachine.storeApi');
@@ -46,7 +46,8 @@ Route::group(['middleware' => ['cors']], function () {
     Route::post('VirtualMachine/start/{virtualMachine}',[VirtualMachineController::class,'startVM'])->name('VirtualMachine.startVM');
     //detener VM
     Route::post('VirtualMachine/stop/{virtualMachine}',[VirtualMachineController::class,'stopVM'])->name('VirtualMachine.stopVM');
-
+    //delete VM
+    Route::delete('VirtualMachine/{virtualMachine}',[VirtualMachineController::class,'destroyApi'])->name('VirtualMachine.destroyApi');
 
 
 });
