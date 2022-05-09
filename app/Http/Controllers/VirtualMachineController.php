@@ -220,11 +220,9 @@ class VirtualMachineController extends Controller
 
             $user = $request->user();
             $proxmox = new PVE('95.129.255.249', $user->proxmox_user, $user->proxmox_password, 18006, 'pam');
-            // return $virtualMachine;
             return response()->json($proxmox->nodes()->node('pvedaw')->qemu()->vmid($virtualMachine)->delete());
         }
-        // /api2/json/nodes/{node}/qemu/{vmid}
-        // /api2/json/nodes/{node}/qemu/{vmid}
+
         
     // arrancar vm
     public function startVM(Request $request, $virtualMachine)
