@@ -33,7 +33,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::group(['middleware' => ['cors']], function () {  
     //Virtual Machines
-    Route::put('VirtualMachine/{id}', [VirtualMachineController::class,'updateApi'])->name('VirtualMachine.updateApi');
+    Route::put('VirtualMachine/{virtualMachine}', [VirtualMachineController::class,'updateApi'])->name('VirtualMachine.updateApi');
    
     
     //store

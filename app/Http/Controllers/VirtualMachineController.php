@@ -130,9 +130,9 @@ class VirtualMachineController extends Controller
         // return response($proxmox->nodes()->node('pvedaw')->qemu()->get())
         // ->header('Access-Control-Allow-Credentials', 'true');
         return response()
-                    -> json($proxmox->nodes()->node('pvedaw')->qemu()->get());
-                    // -> header('Access-Control-Allow-Credentials', 'true');
-    
+            ->json($proxmox->nodes()->node('pvedaw')->qemu()->get());
+        // -> header('Access-Control-Allow-Credentials', 'true');
+
     }
 
 
@@ -173,7 +173,7 @@ class VirtualMachineController extends Controller
     {
         $user = $request->user();
         $proxmox = new PVE('95.129.255.249', $user->proxmox_user, $user->proxmox_password, 18006, 'pam');
-        $params =$request->all();
+        $params = $request->all();
         $params['vmid'] = $proxmox->cluster()->NextId(array())->get()['data']; // Obtenim el nextId i l'afegim a l'array de paràmetres
 
         /*$request->validate([
@@ -198,10 +198,10 @@ class VirtualMachineController extends Controller
             'message' => 'Registration is completed',
         ];
 
-        return response($response,201);
-      
+        return response($response, 201);
+
         // return response()->json($proxmox->nodes()->node('pvedaw')->qemu()->post($params), );
-        
+
     }
 
 
@@ -214,16 +214,16 @@ class VirtualMachineController extends Controller
         return response()->json($proxmox->nodes()->node('pvedaw')->qemu()->vmid($virtualMachine)->status()->current()->get());
     }
 
-        //función eliminar máquinas virtuales
-        public function destroyApi(Request $request, $virtualMachine)
-        {
+    //función eliminar máquinas virtuales
+    public function destroyApi(Request $request, $virtualMachine)
+    {
 
-            $user = $request->user();
-            $proxmox = new PVE('95.129.255.249', $user->proxmox_user, $user->proxmox_password, 18006, 'pam');
-            return response()->json($proxmox->nodes()->node('pvedaw')->qemu()->vmid($virtualMachine)->delete());
-        }
+        $user = $request->user();
+        $proxmox = new PVE('95.129.255.249', $user->proxmox_user, $user->proxmox_password, 18006, 'pam');
+        return response()->json($proxmox->nodes()->node('pvedaw')->qemu()->vmid($virtualMachine)->delete());
+    }
 
-        
+
     // arrancar vm
     public function startVM(Request $request, $virtualMachine)
     {
@@ -235,7 +235,7 @@ class VirtualMachineController extends Controller
     // parar vm
     public function stopVM(Request $request, $virtualMachine)
     {
-        
+
         $user = $request->user();
         $proxmox = new PVE('95.129.255.249', $user->proxmox_user, $user->proxmox_password, 18006, 'pam');
         return response()->json($proxmox->nodes()->node('pvedaw')->qemu()->vmid($virtualMachine)->status()->stop()->post());
@@ -243,21 +243,26 @@ class VirtualMachineController extends Controller
 
     //función editar máquina virtual para la api se hace con vue
     //función update máquina virtual
-    public function updateApi(Request $request, $id)
+    public function updateApi(Request $request, $virtualMachine)
     {
-        $virtualMachine = VirtualMachine::find($id);
-        $virtualMachine->user_id = '14';
-        $virtualMachine->Name = $request->Name;
-        $virtualMachine->OS = $request->OS;
-        $virtualMachine->Version = $request->Version;
-        $virtualMachine->Ram_size = $request->Ram_size;
-        $virtualMachine->Disk_capacity = $request->Disk_capacity;
-        $virtualMachine->Description = $request->Description;
-        $virtualMachine->Power_on = false;
-        $virtualMachine->created_at = date('Y-m-d H:i:s');
-        $virtualMachine->updated_at = date('Y-m-d H:i:s');
-        $virtualMachine->save();
-        return $virtualMachine;
+
+        $user = $request->user();
+        $proxmox = new PVE('95.129.255.249', $user->proxmox_user, $user->proxmox_password, 18006, 'pam');
+        $params = $request->all();
+        return response()->json($proxmox->nodes()->node('pvedaw')->qemu()->vmid($virtualMachine)->config()->put($params));
+        // $virtualMachine = VirtualMachine::find($id);
+        // $virtualMachine->user_id = '14';
+        // $virtualMachine->Name = $request->Name;
+        // $virtualMachine->OS = $request->OS;
+        // $virtualMachine->Version = $request->Version;
+        // $virtualMachine->Ram_size = $request->Ram_size;
+        // $virtualMachine->Disk_capacity = $request->Disk_capacity;
+        // $virtualMachine->Description = $request->Description;
+        // $virtualMachine->Power_on = false;
+        // $virtualMachine->created_at = date('Y-m-d H:i:s');
+        // $virtualMachine->updated_at = date('Y-m-d H:i:s');
+        // $virtualMachine->save();
+        // return $virtualMachine;
     }
 
     //función delete máquina virtual
