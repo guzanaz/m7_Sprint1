@@ -136,38 +136,6 @@ class VirtualMachineController extends Controller
     }
 
 
-    //función crear máquina virtual para la api se hace con vue
-
-    //OLD!!
-    //función guardar máquina virtual
-    // public function storeApi(Request $request)
-    // {
-    //     $request->validate([
-    //         'Name' => 'required',
-    //         'OS' => 'required',
-    //         'Version' => 'required',
-    //         'Ram_size' => 'required',
-    //         'Disk_capacity' => 'required',
-    //         'Description' => 'required',
-    //     ]);
-
-    //     $virtualMachine = new VirtualMachine();
-
-    //     $virtualMachine->user_id = '1';
-    //     $virtualMachine->Name = $request->Name;
-    //     $virtualMachine->OS = $request->OS;
-    //     $virtualMachine->Version = $request->Version;
-    //     $virtualMachine->Ram_size = $request->Ram_size;
-    //     $virtualMachine->Disk_capacity = $request->Disk_capacity;
-    //     $virtualMachine->Description = $request->Description;
-    //     $virtualMachine->Power_on = false;
-    //     $virtualMachine->created_at = date('Y-m-d H:i:s');
-    //     $virtualMachine->updated_at = date('Y-m-d H:i:s');
-
-    //     $virtualMachine->save();
-    //     return $virtualMachine;
-    // }
-
     //función store máquinas virtuales
     public function storeApi(Request $request)
     {
@@ -176,32 +144,12 @@ class VirtualMachineController extends Controller
         $params = $request->all();
         $params['vmid'] = $proxmox->cluster()->NextId(array())->get()['data']; // Obtenim el nextId i l'afegim a l'array de paràmetres
 
-        /*$request->validate([
-            'name' => 'required',
-            'pool' => 'required',
-            'ide2' => 'required',
-            'ostype' => 'required',
-            'scsihw' => 'required',
-            'scsi0' => 'required',
-            'sockets' => 'required',
-            'cores' => 'required',
-            'numa' => 'required',
-            'memory' => 'required',
-            'net0' => 'required',
-            'balloon' => 'required',
-            'vga' => 'required',
-        ]);*/
-
         $response =  [
             'data' => $proxmox->nodes()->node('pvedaw')->qemu()->post($params),
             'success' => true,
             'message' => 'Registration is completed',
         ];
-
         return response($response, 201);
-
-        // return response()->json($proxmox->nodes()->node('pvedaw')->qemu()->post($params), );
-
     }
 
 
@@ -229,7 +177,15 @@ class VirtualMachineController extends Controller
     {
         $user = $request->user();
         $proxmox = new PVE('95.129.255.249', $user->proxmox_user, $user->proxmox_password, 18006, 'pam');
-        return response()->json($proxmox->nodes()->node('pvedaw')->qemu()->vmid($virtualMachine)->status()->start()->post());
+        
+        $response =  [
+            'data' => $proxmox->nodes()->node('pvedaw')->qemu()->vmid($virtualMachine)->status()->start()->post(),
+            'success' => true,
+            'message' => 'Virtual machine is running',
+            'object' => $proxmox->nodes()->node('pvedaw')->qemu()->vmid($virtualMachine)->status()->current()->get()
+        ];
+        return response($response, 201);
+        //return response()->json($proxmox->nodes()->node('pvedaw')->qemu()->vmid($virtualMachine)->status()->start()->post());
     }
 
     // parar vm
@@ -238,7 +194,16 @@ class VirtualMachineController extends Controller
 
         $user = $request->user();
         $proxmox = new PVE('95.129.255.249', $user->proxmox_user, $user->proxmox_password, 18006, 'pam');
-        return response()->json($proxmox->nodes()->node('pvedaw')->qemu()->vmid($virtualMachine)->status()->stop()->post());
+        
+        $response =  [
+            'data' => $proxmox->nodes()->node('pvedaw')->qemu()->vmid($virtualMachine)->status()->stop()->post(),
+            'success' => true,
+            'message' => 'Virtual machine is stopped',
+            'object' => $proxmox->nodes()->node('pvedaw')->qemu()->vmid($virtualMachine)->status()->current()->get()
+        ];
+        return response($response, 201);
+        
+        //return response()->json($proxmox->nodes()->node('pvedaw')->qemu()->vmid($virtualMachine)->status()->stop()->post());
     }
 
     //función editar máquina virtual para la api se hace con vue
@@ -250,26 +215,5 @@ class VirtualMachineController extends Controller
         $proxmox = new PVE('95.129.255.249', $user->proxmox_user, $user->proxmox_password, 18006, 'pam');
         $params = $request->all();
         return response()->json($proxmox->nodes()->node('pvedaw')->qemu()->vmid($virtualMachine)->config()->put($params));
-        // $virtualMachine = VirtualMachine::find($id);
-        // $virtualMachine->user_id = '14';
-        // $virtualMachine->Name = $request->Name;
-        // $virtualMachine->OS = $request->OS;
-        // $virtualMachine->Version = $request->Version;
-        // $virtualMachine->Ram_size = $request->Ram_size;
-        // $virtualMachine->Disk_capacity = $request->Disk_capacity;
-        // $virtualMachine->Description = $request->Description;
-        // $virtualMachine->Power_on = false;
-        // $virtualMachine->created_at = date('Y-m-d H:i:s');
-        // $virtualMachine->updated_at = date('Y-m-d H:i:s');
-        // $virtualMachine->save();
-        // return $virtualMachine;
     }
-
-    //función delete máquina virtual
-    // public function destroyApi($id)
-    // {
-    //     $virtualMachine = VirtualMachine::find($id);
-    //     $virtualMachine->delete();
-    //     return $virtualMachine;
-    // }
 }
