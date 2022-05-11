@@ -106,15 +106,6 @@ class VirtualMachineController extends Controller
         return redirect()->route('VirtualMachine.index');
     }
 
-    /**
-     * API FUNCTIONS
-     */
-    /* OLD !!!
-    public function indexApi(){
-        $virtualMachines=VirtualMachine::all();
-        return $virtualMachines;
-    }
-    */
     public function indexApi(Request $request)
     {
 
